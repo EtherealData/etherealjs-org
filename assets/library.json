@@ -1,0 +1,120 @@
+{
+  "entries": [
+    {
+      "name": "Intro",
+      "subtopics": [
+        "Welcome",
+        "License"
+      ]
+    },
+    {
+      "name": "Classes",
+      "subtopics": [
+        "Base",
+        "Base Display",
+        "Component",
+        "Runtime",
+        "Static"
+      ]
+    },
+    {
+      "name": "Examples",
+      "subtopics": [
+        "Dialog App",
+        "Wiki",
+        "Button"
+      ]
+    }
+  ],
+  "content": {
+    "Welcome": {
+      "title": "Welcome",
+      "paragraphs": [
+        "Welcome to the developer documentation of EtherealJS, an extremely lightweight component-based Javascript Library. Utilizing the latest ES6 methods, simplified event binding, template declaration, and runtime/process concepts, this framework was designed with a minimalistic approach in mind.",
+        "EtherealJS allows you to inject entire microapps or individual components through class-based declarations. Dynamic templates, event-bindings, and even CSS stylesheets are all defined inside of ES6 classes, which are included in a runtime library. It requires no external dependencies, and is about 10kb in total size, easily handling applications of any size, built atop the concept of scalability and simplicity.",
+        "This project was originally developed as an internal framework for Ethereal Data, LLC, to assess clients' web-application needs, but we have decided to contribute our solution to the community under the open-source MIT License. This wiki was built with EtherealJS and is <a href='http://github.com/etherealdata'>available in GitHub as a public repo</a> to demonstrate the simplicity of EtherealJS"
+      ]
+    },
+    "License": {
+      "title": "Copyright 2018 Ethereal Data, LLC",
+      "paragraphs": [
+        "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+        "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
+        "<b>THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</b>"
+      ]
+    },
+    "Base": {
+      "title": "Base Class",
+      "subtitle": "File: _base.js",
+      "paragraphs": [
+        "The lowest level class. Most classes in the framework (besides Static) extend this class.",
+        "It receives a configuration object, loops through the keys, binds the values to it's instance, and fires off lifecycle hooks. There are currently two lifecycle hooks, _onInstantiate and _onLoaded."
+      ],
+      "classBreakdown": {
+        "methods": [
+          {
+            "name": "_onInstantiate(config)",
+            "description": "Fired when class is instantiated, and before properties are bound. This is useful to handle some sort of logic before properties are bound."
+          },
+          {
+            "name": "_onLoaded(config)",
+            "description": "Fired when class is instantiated, and after properties are bound. This is useful for checking if certain properties were passed, and returning an error if not. It is important to call super._onLoaded() after your logic, otherwise certain classes such as Base Display or Component will not draw to the DOM."
+          },
+          {
+            "name": "setProperty(key, value)",
+            "description": "Accepts a key and value pair, and sets it to the instance's properties object."
+          }
+        ]
+      }
+    },
+    "Base Display": {
+      "title": "Base Display Class",
+      "subtitle": "File: _base-display.js",
+      "paragraphs": [
+        "Base Display class is responsible for rendering a template literal, which is defined and returned from the classes draw() function into an existing context somewhere in the DOM. Each instance of Base Display class is required to contain a reference to it's origin (either a runtime, parent component, or if injecting into a different library, usually the instance of whatever you are calling it from), it's runtime, and a context for which to render. It is important to note that since EtherealJS uses low-level HTML rendering with outerHTML, it is important that the context is an existing DOM node. Due to EtherealJS's dynamic nature, we accomplish recursive context by querying the DOM for component-pid attributes which are attached during instantiation.",
+        "Inside of the template literal defined in the draw function, you can attach event listeners to functions by including special attributes in any HTML element contained inside of it. For example, <code><a href='fef' e click='select'></a></code> (e for event followed by the type of event to bind) will attach a click event handler, and fire off 'select' function in it's corresponding instance.",
+        "We also leverage ES6's native template literal functionality (expressions inside of ${} get evaluated). This allows you to use dynamic properties and isolated states similar to that of React, Angular, and Handlebars. It is possible to retrieve properties from the global runtime in order to share properties across the application and different components, by accessing the instance's runtime.properties object."
+      ],
+      "classBreakdown": {
+        "methods": [
+          {
+            "name": "resolve()",
+            "description": "Fired from instance's _onInitialized() function. Finds <Component definition> tags inside of the rendered context, looks up their definition, and renders the draw() function in place using outerHTML. The instance is then cached inside of the instance's cache.children array. The cached instance is then used to persist property values and re-render."
+          },
+          {
+            "name": "bind()",
+            "description": "Bind method uses the rendered context's native querySelector method to find the attribute [e], loop through attributes, and binds the event key in Static.getEventMap() to the returned value's event."
+          },
+          {
+            "name": "draw()",
+            "description": "Accepts a key and value pair, and binds it to instance's properties object"
+          }
+        ]
+      }
+    },
+    "Component": {
+      "title": "Component Class",
+      "subtitle": "File: component.js",
+      "paragraphs": [
+        "Component extends Base Display class, but does a few extra things to provide real-time functionality. First, it's setProperty method sets a value on the instance's properties object. It then queries the DOM using Static.getDOMInstance(pid), redraws the draw() function, and then instead of instantiating new Component instances, it uses the cache.children to redraw it's children, keeping state and instance of original PID.",
+        "If building a microapp, your components will most likely depend on properties inside of it's runtime to draw into components. If this is a the case, update those properties using setRuntimeProperty(key, value) to update properties and redraw all the components."
+      ],
+      "classBreakdown": {
+        "methods": [
+          {
+            "name": "synchronize()",
+            "description": "Queries DOM for instance of itself, then queries for <ODComponent od-definition>, and uses cache.children to re-draw instances in place, also updating their displayed values against those that where updated in instance."
+          },
+          {
+            "name": "setProperty(key, value)",
+            "description": "First, the value is set using Base's super.setProperty(key, value). It then queries the DOM using Static.getDOMInstance(pid), redraws the draw() function, and then instead of instantiating new Component instances, it uses the cache.children to redraw it's children using synchronize(), keeping state and instance of original PID. "
+          },
+          {
+            "name": "setRuntimeProperty(key, value)",
+            "description": "Same functionality for setProperty(), except it's executed on the runtime, redrawing all the child instances inside of the runtime's root process using synchronize()."
+          }
+        ]
+      }
+    }
+  }
+}

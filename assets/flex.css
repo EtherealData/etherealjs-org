@@ -1,0 +1,77 @@
+.flex-container, .row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  /* works with row or column */
+  flex-direction: row; }
+
+.flex-wrap {
+  flex-wrap: wrap; }
+
+.flex-shrink {
+  flex-shrink: 1; }
+
+.column {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  /* works with row or column */
+  flex-direction: column; }
+
+.column.stretch {
+  align-content: stretch; }
+
+.space-around {
+  justify-content: space-around; }
+
+.space-between {
+  justify-content: space-between; }
+
+.center {
+  justify-content: center; }
+
+.start {
+  justify-content: flex-start; }
+
+.end {
+  justify-content: flex-end; }
+
+.align-center {
+  align-items: center; }
+
+.align-start {
+  align-items: flex-start; }
+
+.align-end {
+  align-items: flex-end; }
+
+.align-stretch {
+  align-items: stretch; }
+
+.flex {
+  flex: 1; }
+
+
+@media only screen and (max-width: 1350px) {
+  .container.container {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 950px) {
+  .container {
+    text-align:center;
+    
+  }
+  .hero img {
+    width:100%;
+  }
+  .row  {
+    display: block;
+  }
+  .row > * {
+    display:block;
+    min-width:100%;
+    padding: 20px 40px;
+  }
+}
+/*# sourceMappingURL=flex.css.map */

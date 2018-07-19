@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EtherealJS - Developer Documentation</title>
+	<meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112432495-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-112432495-2');
+	</script>
+</head>
+<body>
+	<Component definition="Header"></Component>
+	<Router>
+		<Route path="/" definition="Home"></Route>
+		<Route path="/Wiki" definition="Wiki"></Route>
+	</Router>
+	<Component definition="Footer"></Component>
+    <script src="./src/index.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="./assets/flex.css">
+</body>
+</html>

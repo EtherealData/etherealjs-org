@@ -1,0 +1,50 @@
+<h2>home.js</h2>
+<pre>
+    <code>
+        import Component from './etherealjs/src/component.js';
+        import Runtime from './etherealjs/src/runtime.js';
+
+        export class HelloWorld extends Component {
+            constructor(config) {
+                super(config);
+            }
+            style() {
+                return {
+                    '': {
+                        'background': '#eee',
+                        'h1': {
+                            'font-size': '24px',
+                            'color': '#666',
+                            'padding': '10px'
+                        },
+                        'button': {
+                            'background': '#127fbd',
+                            'color: '#fff',
+                            'font-size': '18px'
+                        }
+                    }
+                }
+            }
+            draw() {
+                let location = this.properties['location'] || 'World';
+                return `
+                    <xmp>
+                        <div>
+                            <h1>
+                                Hello ${location}!
+                            </h1>
+                        </div>
+                        <button>Update</button>
+                    </xmp>
+
+                `
+            }
+        }
+
+        new Runtime({
+            library: {
+                HelloWorld: HelloWorld
+            }
+        });
+    </code>
+</pre>
