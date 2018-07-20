@@ -1,110 +1,113 @@
 <h2>index.html</h2>
 <pre>
-    <code>
-        <xmp>
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Hello World with EtherealJS!</title>
-            </head>
-            <body>
-                <Router>
-                    <Route path="/" definition="HelloWorld"></Route>
-		            <Route path="/about" definition="About"></Route>
-                </Router>
-                <script src="./home.js" type="module"></script>
-            </body>
-            </html>
+<code>
+<xmp>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World with EtherealJS!</title>
+</head>
+<body>
+    <Router>
+        <Route path="/" definition="HelloWorld"></Route>
+        <Route path="/about" definition="About"></Route>
+    </Router>
+    <script src="./home.js" type="module"></script>
+</body>
+</html>
 
-        </xmp>
-    </code>
+</xmp>
+</code>
 </pre>
 
 <h2>home.js</h2>
 <pre>
-    <code>
-        import Component from './etherealjs/src/component.js';
-        import Runtime from './etherealjs/src/runtime.js';
+<code>
+import Component from './etherealjs/src/component.js';
+import Runtime from './etherealjs/src/runtime.js';
 
-        export class HelloWorld extends Component {
-            constructor(config) {
-                super(config);
-            }
-            style() {
-                return {
-                    '': {
-                        'background': '#eee',
-                        'h1': {
-                            'font-size': '24px',
-                            'color': '#666',
-                            'padding': '10px'
-                        },
-                        'button': {
-                            'background': '#127fbd',
-                            'color: '#fff',
-                            'font-size': '18px'
-                        }
-                    }
+export class HelloWorld extends Component {
+    constructor(config) {
+        super(config);
+    }
+    style() {
+        return {
+            '': {
+                'background': '#eee',
+                'h1': {
+                    'font-size': '24px',
+                    'color': '#666',
+                    'padding': '10px'
+                },
+                'button': {
+                    'background': '#127fbd',
+                    'color: '#fff',
+                    'font-size': '18px'
                 }
             }
-            draw() {
-                let location = this.properties['location'] || 'World';
-                return `
-                    <xmp>
-                        <div>
-                            <h1>
-                                Hello ${location}!
-                            </h1>
-                        </div>
-                        <button>Update</button>
-                    </xmp>
-
-                `
-            }
         }
+    }
+    update() {
+        this.setProperty('location', 'Florida');
+    }
+    draw() {
+        let location = this.properties['location'] || 'World';
+        return `
+            <xmp>
+                <div>
+                    <h1>
+                        Hello ${location}!
+                    </h1>
+                </div>
+                <button e click="update">Update</button>
+            </xmp>
 
-        export class About extends Component {
-            constructor(config) {
-                super(config);
-            }
-            style() {
-                return {
-                    '': {
-                        'background': '#eee',
-                        'textarea': {
-                            'font-size': '24px',
-                            'color': '#000',
-                            'padding': '10px',
-                            'background': '#fff'
-                        },
-                        'button': {
-                            'background': '#127fbd',
-                            'color: '#fff',
-                            'font-size': '18px'
-                        }
-                    }
+        `
+    }
+}
+
+export class About extends Component {
+    constructor(config) {
+        super(config);
+    }
+    style() {
+        return {
+            '': {
+                'background': '#eee',
+                'textarea': {
+                    'font-size': '24px',
+                    'color': '#000',
+                    'padding': '10px',
+                    'background': '#fff'
+                },
+                'button': {
+                    'background': '#127fbd',
+                    'color: '#fff',
+                    'font-size': '18px'
                 }
             }
-            draw() {
-
-                return `
-                    <xmp>
-                        <div>
-                            <textarea></textarea>
-                        </div>
-                        <button>Submit</button>
-                    </xmp>
-
-                `
-            }
         }
+    }
+    draw() {
 
-        new Runtime({
-            library: {
-                HelloWorld: HelloWorld,
-                About: About
-            }
-        });
-    </code>
+        return `
+            <xmp>
+                <div>
+                    <textarea></textarea>
+                </div>
+                <button>Submit</button>
+            </xmp>
+
+        `
+    }
+}
+
+new Runtime({
+    library: {
+        HelloWorld: HelloWorld,
+        About: About
+    }
+});
+</code>
 </pre>

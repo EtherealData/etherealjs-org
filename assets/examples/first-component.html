@@ -1,51 +1,51 @@
 <h2>index.html</h2>
 <pre>
-    <code>
-        <xmp>
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Hello World with EtherealJS!</title>
-            </head>
-            <body>
-                <Component definition="HelloWorld"></Component>
-                <script src="./home.js" type="module"></script>
-            </body>
-            </html>
+<code>
+<xmp>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World with EtherealJS!</title>
+</head>
+<body>
+    <Component definition="HelloWorld"></Component>
+    <script src="./home.js" type="module"></script>
+</body>
+</html>
 
-        </xmp>
-    </code>
+</xmp>
+</code>
 </pre>
 
 
 <h2>home.js</h2>
 <pre>
-    <code>
-        import Component from './etherealjs/src/component.js';
-        import Runtime from './etherealjs/src/runtime.js';
+<code>
+import Component from './etherealjs/src/component.js';
+import Runtime from './etherealjs/src/runtime.js';
 
-        export class HelloWorld extends Component {
-            constructor(config) {
-                super(config);
-            }
-            draw() {
-                return `
-                    <xmp>
-                        <div>
-                            Hello World
-                        </div>
-                        <button>Update</button>
-                    </xmp>
+export class HelloWorld extends Component {
+    constructor(config) {
+        super(config);
+    }
+    draw() {
+        return `
+            <xmp>
+                <div>
+                    Hello World
+                </div>
+                <button>Update</button>
+            </xmp>
 
-                `
-            }
-        }
+        `
+    }
+}
 
-        new Runtime({
-            library: {
-                HelloWorld: HelloWorld
-            }
-        });
-    </code>
+new Runtime({
+    library: {
+        HelloWorld: HelloWorld
+    }
+});
+</code>
 </pre>

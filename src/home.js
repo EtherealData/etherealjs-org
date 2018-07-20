@@ -45,7 +45,6 @@ export class Hero extends Component {
                     <h2>Ultra-lightweight JS Component Library</h2>
                     <div class="row center align-center">
                         <Component definition="Button" property-text="Get Started" property-url="http://github.com/etherealdata/etherealjs"></Component>
-                        <a href="/Wiki">View Developer Wiki</a>
                     </div>
                 </div>`
     }
@@ -155,11 +154,7 @@ export class Examples extends Component {
                 description: `First, create a new directory, and clone https://github.com/etherealdata/etherealjs repo. <br> 
                                 <br><br>
                                 <h3>Terminal:</h3>
-                                <pre class="terminal"><code>
-                                    cd ~
-                                    mkdir helloworld
-                                    cd helloworld
-                                    git clone https://github.com/etherealdata/etherealjs
+                                <pre class="terminal"><code>\ncd ~ \nmkdir helloworld \ncd helloworld \ngit clone https://github.com/etherealdata/etherealjs
                                 </code></pre><br>
                                 Then, inside of the directory your created, create a JS file named home that imports Component and Runtime from etherealjs/src.<br> <br>
                                 Now create a class named HelloWorld that extends Component. <br> <br>
@@ -185,6 +180,11 @@ export class Examples extends Component {
                 example: './assets/examples/style-it.html'
             },
             {
+                name: 'Handle an event',
+                description: `On the button, add an 'e' attribute (for 'event') and point your listener to a function named update. Inside of this update function, set the location variable to another location than 'World'`,
+                example: './assets/examples/handle-an-event.html'
+            },
+            {
                 name: 'Create an SPA',
                 description: `Go back to your HTML file, and replace the Component tag with a new Router tag. <br>
                               Inside of the Router tag, place two child Route tags. <br> <br>
@@ -202,9 +202,7 @@ export class Examples extends Component {
                                 We have made it as simple as running a command. <br>
                                 First, 'npm install' to make sure webpack is installed. Then, 'npm run build'. <br> <br>
                                 <h3>Terminal:</h3>
-                                <pre class="terminal"><code>
-                                    npm install
-                                    npm run build
+                                <pre class="terminal"><code>\nnpm install \nnpm run build
                                 </code></pre><br> <br>
                                 Webpack will build a dependency graph based off of your imports and compile everything into dist/main.js. Sweet. <br> <br>
                                 
@@ -225,7 +223,9 @@ export class Examples extends Component {
                     'background':'#eee',
                     'margin-bottom': '20px',
                     'max-height': '350px',
-                    'overflow-y': 'scroll'
+                    'overflow-y': 'scroll',
+                    'padding': '24px',
+                    'text-align': 'left'
                 },
                 '.terminal': {
                     'background': '#000',

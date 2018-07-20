@@ -25,6 +25,9 @@ export class HelloWorld extends Component {
             }
         }
     }
+    update() {
+        this.setProperty('location', 'Florida')
+    }
     draw() {
         let location = this.properties['location'] || 'World';
         return `
@@ -34,7 +37,7 @@ export class HelloWorld extends Component {
                         Hello ${location}!
                     </h1>
                 </div>
-                <button>Update</button>
+                <button e click="update">Update</button>
             </xmp>
 
         `
